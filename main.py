@@ -78,7 +78,7 @@ def show():
 
 
 def get_category_color(category):
-    COLORS = {"Work": "cyan", "Video": "red", "Sports": "cyan", "Study": "green"}
+    COLORS = {"Work": "cyan", "Video": "red", "Sports": "orange", "Study": "green"}
     if category in COLORS:
         return COLORS[category]
     return "white"
