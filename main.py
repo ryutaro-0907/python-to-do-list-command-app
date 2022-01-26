@@ -8,14 +8,7 @@ from rich.console import Console
 from rich.table import Table
 
 sys.path.append("python-to-do-list-command-app/")
-from models.database import (
-    delete_todo,
-    get_all_todos,
-    update_todo,
-    complete_todo,
-    insert_todo,
-    init_db_table,
-)
+from models.database import TodoManager
 from models.model import Todo
 
 
@@ -23,12 +16,14 @@ console = Console()
 
 app = typer.Typer()
 
+manager = TodoManager()
+
 
 @app.command(short_help="add an item")
 def add(task: str, category: str):
     typer.echo(f"adding {task}, {category}")
     todo = Todo(task=task, category=category)
-    insert_todo(todo)
+    manager.insert_todo(todo)
     show()
 
 
@@ -36,7 +31,7 @@ def add(task: str, category: str):
 def delete(todo_id: int):
     typer.echo(f"deleting {todo_id}")
     assert type(todo_id) == int
-    delete_todo(todo_id)
+    manager.delete_todo(todo_id)
     show()
 
 
@@ -44,7 +39,7 @@ def delete(todo_id: int):
 def update(id: int, task: str = None, category: str = None):
     typer.echo(f"updating {id}")
     assert type(id) == int
-    update_todo(id, task=task, category=category)
+    manager.update_todo(id, task=task, category=category)
     show()
 
 
@@ -53,13 +48,13 @@ def complete(id: int):
     typer.echo(f"complting {id}")
     assert type(id) == int
 
-    complete_todo(id)
+    manager.complete_todo(id)
     show()
 
 
 @app.command()
 def show():
-    tasks = get_all_todos()
+    tasks = manager.get_all_todos()
     console.print("[bold magenta]Todos[/bold magenta]!", "💻")
 
     table = Table(show_header=True, header_style="bold blue")
@@ -86,5 +81,5 @@ def get_category_color(category):
 
 if __name__ == "__main__":
     if not os.path.isfile("../python-to-do-list-command-app/todo.db"):
-        init_db_table()
+        manager.init_db_table()
     app()
