@@ -24,10 +24,10 @@ def add(task: str, category: str):
     show()
 
 @app.command(short_help='delete an item')
-def detlete(id: int):
-    typer.echo(f"deleting {id}")
-    assert type(id) == int
-    delete_todo(id)
+def delete(todo_id: int):
+    typer.echo(f"deleting {todo_id}")
+    assert type(todo_id) == int
+    delete_todo(todo_id)
     show()
 
 @app.command(short_help='update an item')

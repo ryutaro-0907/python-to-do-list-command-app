@@ -50,12 +50,12 @@ def get_all_todos() -> List[Todo]:
     finally:
         session.close()
 
-def delete_todo(id:int):
+def delete_todo(todo_id:int):
     session = Session()
 
     try: 
         session.query(Todo).\
-            filter(Todo.id==id).\
+            filter(Todo.id==todo_id).\
                 delete()
         session.commit()
     except:
@@ -103,7 +103,7 @@ def complete_todo(id:int):
 def init_db_table():
     metadata_obj = MetaData()
     todo = Table('todos', metadata_obj,
-    # Column('id', Integer, primary_key=True),
+    Column('id', Integer, primary_key=True),
     Column('task', String),
     Column('category', String),
     Column('date_added', String),
