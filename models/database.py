@@ -61,7 +61,7 @@ class TodoManager:
     def complete_todo(self, id: int):
         try:
             todo = self.session.query(Todo).filter(Todo.id == id).first()
-            todo.status = 2
+            todo.status = "done"
             todo.date_completed = str(datetime.datetime.today().strftime("%Y-%m-%d"))
             self.session.commit()
         except:
@@ -79,7 +79,7 @@ class TodoManager:
             Column("category", String),
             Column("date_added", String),
             Column("date_completed", String),
-            Column("status", Integer),
+            Column("status", String),
         )
         todo.create(self.engine)
 

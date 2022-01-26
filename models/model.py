@@ -12,7 +12,7 @@ class Todo(Base):
     category = Column(String)
     date_added = Column(String)
     date_completed = Column(String)
-    status = Column(Integer)
+    status = Column(String)
 
     def __repr__(self) -> str:
-        return f"({self.task}, {self.category}, {self.date_added}, {self.date_completed}, {self.status}, {self.position}"
+        return f"({self.task}, {self.category}, {self.date_added}, {self.date_completed}, {self.status}"

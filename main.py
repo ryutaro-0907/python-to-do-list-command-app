@@ -65,7 +65,7 @@ def show():
 
     for idx, task in enumerate(tasks, start=1):
         color = get_category_color(task.category)
-        is_done_str = "✅" if task.status == 2 else "❌"
+        is_done_str = "✅" if task.status == 'done' else "❌"
         table.add_row(
             str(task.id), task.task, f"[{color}]{task.category}[/{color}]", is_done_str
         )
